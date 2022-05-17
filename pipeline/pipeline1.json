@@ -57,7 +57,7 @@
 				"userProperties": []
 			},
 			{
-				"name": "Lookup1",
+				"name": "List Tables",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
