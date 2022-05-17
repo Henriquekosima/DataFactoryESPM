@@ -70,7 +70,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "MySqlSource",
+						"query": "select TABLE_NAME from information_schema.TABLES\nwhere TABLE_SCHEMA = 'carloca'"
 					},
 					"dataset": {
 						"referenceName": "MySqlCarloca",
