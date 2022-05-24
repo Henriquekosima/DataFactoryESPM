@@ -45,40 +45,8 @@
 										"type": "ParquetWriteSettings"
 									}
 								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "MySqlCarloca",
-									"type": "DatasetReference",
-									"parameters": {
-										"tableName": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "Parquet1",
-									"type": "DatasetReference",
-									"parameters": {
-										"fileName": {
-											"value": "@concat(item(),'.parquet')",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+								"enableStaging": false
+							}
 						}
 					]
 				}
@@ -99,10 +67,6 @@
 					"source": {
 						"type": "MySqlSource",
 						"query": "select TABLE_NAME from information_schema.TABLES\nwhere TABLE_SCHEMA = 'carloca'"
-					},
-					"dataset": {
-						"referenceName": "MySqlTable1",
-						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
 				}
