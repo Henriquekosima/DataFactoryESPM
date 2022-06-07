@@ -1,5 +1,5 @@
 {
-	"name": "Dim_Tempo",
+	"name": "Dim_Regiao",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "linkedService1",
@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "dim_tempo",
 				"fileSystem": "analytics"
 			}
 		},
