@@ -1,5 +1,5 @@
 {
-	"name": "MySqlTable2",
+	"name": "carlocaData",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "MySql1",

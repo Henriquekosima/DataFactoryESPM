@@ -20,7 +20,7 @@
 						"query": "select TABLE_NAME from information_schema.tables where TABLE_SCHEMA = 'carloca'"
 					},
 					"dataset": {
-						"referenceName": "MySqlCarlocaTables",
+						"referenceName": "carlocaTables",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -73,7 +73,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "MySqlTable2",
+									"referenceName": "carlocaData",
 									"type": "DatasetReference",
 									"parameters": {
 										"tableName": {
