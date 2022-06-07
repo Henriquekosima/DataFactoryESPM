@@ -61,12 +61,12 @@
 									"type": "MySqlSource"
 								},
 								"sink": {
-									"type": "JsonSink",
+									"type": "ParquetSink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "JsonWriteSettings"
+										"type": "ParquetWriteSettings"
 									}
 								},
 								"enableStaging": false
@@ -85,13 +85,13 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Json1",
+									"referenceName": "ingestion",
 									"type": "DatasetReference",
 									"parameters": {
 										"container": "ingestion",
 										"folder": "carloca",
 										"file": {
-											"value": "@concat(item().TABLE_NAME, '.json')",
+											"value": "@concat(item().TABLE_NAME,'.parquet')",
 											"type": "Expression"
 										}
 									}
