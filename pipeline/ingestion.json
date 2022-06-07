@@ -85,7 +85,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Json1",
+									"referenceName": "ingestion",
 									"type": "DatasetReference",
 									"parameters": {
 										"container": "ingestion",

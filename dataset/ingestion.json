@@ -1,5 +1,5 @@
 {
-	"name": "Json1",
+	"name": "ingestion",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "linkedService1",
