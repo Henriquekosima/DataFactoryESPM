@@ -1,0 +1,392 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Nome do Data Factory"
+		},
+		"linkedService1": {
+			"type": "string"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/filter')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "filter",
+								"type": "DataFlowReference"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/filter')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/filter')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ingestionData",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "analytics",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						},
+						{
+							"dataset": {
+								"referenceName": "analytics",
+								"type": "DatasetReference"
+							},
+							"name": "sink2"
+						},
+						{
+							"dataset": {
+								"referenceName": "analytics",
+								"type": "DatasetReference"
+							},
+							"name": "sink3"
+						},
+						{
+							"dataset": {
+								"referenceName": "analytics",
+								"type": "DatasetReference"
+							},
+							"name": "sink4"
+						},
+						{
+							"dataset": {
+								"referenceName": "analytics",
+								"type": "DatasetReference"
+							},
+							"name": "sink5"
+						}
+					],
+					"transformations": [
+						{
+							"name": "select1"
+						},
+						{
+							"name": "DimTempoID"
+						},
+						{
+							"name": "select2"
+						},
+						{
+							"name": "DimVeiculoID"
+						},
+						{
+							"name": "select3"
+						},
+						{
+							"name": "DimRegiaoID"
+						},
+						{
+							"name": "select4"
+						},
+						{
+							"name": "DimClienteID"
+						},
+						{
+							"name": "select5"
+						},
+						{
+							"name": "DimItemID"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Cd_Age_Bco as string,",
+						"          Cd_Agencia as string,",
+						"          Cd_Cargo as string,",
+						"          Cd_Cidade as string,",
+						"          Cd_Cliente as string,",
+						"          Cd_Depto as string,",
+						"          Cd_Estado as string,",
+						"          Cd_Func as string,",
+						"          Cd_Gerente as string,",
+						"          Cd_Proprietario as string,",
+						"          Cd_Tp_Cliente as string,",
+						"          Cd_cliente as string,",
+						"          Desc_Cor as string,",
+						"          Dt_Entrega as string,",
+						"          Dt_Inicio as string,",
+						"          Dt_Locacao as string,",
+						"          Dt_Pagto as string,",
+						"          Dt_Retirada as string,",
+						"          Km_Atual as string,",
+						"          Nm_Agencia as string,",
+						"          Nm_Banco as string,",
+						"          Nm_Cargo as string,",
+						"          Nm_Cidade as string,",
+						"          Nm_Cliente as string,",
+						"          Nm_Depto as string,",
+						"          Nm_Estado as string,",
+						"          Nm_Fabricante as string,",
+						"          Nm_Fone_Cliente as string,",
+						"          Nm_Func as string,",
+						"          Nm_Grupo as string,",
+						"          Nm_Modelo as string,",
+						"          Nm_Operadora as string,",
+						"          Nm_Proprietario as string,",
+						"          Nm_Tp_Automovel as string,",
+						"          Nm_Tp_Cliente as string,",
+						"          Nm_Tp_Combustivelcol as string,",
+						"          Nr_CPF as string,",
+						"          Nr_Chassis as string,",
+						"          Nr_Estrelas as string,",
+						"          Nr_Habilitacao as string,",
+						"          Nr_Pedido as short,",
+						"          Nr_Placa as string,",
+						"          Qt_Dias as string,",
+						"          Sigla_Estado as string,",
+						"          Status as string,",
+						"          Tp_Automovel as string,",
+						"          Tp_Combustivel as string,",
+						"          Vl_Diaria as double,",
+						"          Vl_Diaria_Calc as string,",
+						"          Vl_Orc_Depto as string,",
+						"          Vl_Perc_Comissao as string,",
+						"          Vl_Salario as string,",
+						"          Vl_Total as string,",
+						"          cd_Agencia as string,",
+						"          cd_Banco as string,",
+						"          cd_Cidade as string,",
+						"          cd_Cliente as string,",
+						"          cd_Cor as string,",
+						"          cd_Fabricante as string,",
+						"          cd_Fone_Cliente as string,",
+						"          cd_Grupo as string,",
+						"          cd_Modelo as string,",
+						"          cd_Operadora as string,",
+						"          cd_Tp_Automovel as string,",
+						"          cd_Tp_Cliente as string,",
+						"          cd_Tp_Combustivel as string,",
+						"          cd_agencia as string,",
+						"          cd_banco as string,",
+						"          cd_cor as string,",
+						"          cd_grupo as string,",
+						"          cd_proprietario as string,",
+						"          url as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source1",
+						"source1 select(mapColumn(",
+						"          Dt_Entrega,",
+						"          Dt_Inicio,",
+						"          Dt_Locacao,",
+						"          Dt_Pagto,",
+						"          Dt_Retirada,",
+						"          Qt_Dias",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 keyGenerate(output(DimTempoID as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> DimTempoID",
+						"source1 select(mapColumn(",
+						"          Nm_Tp_Automovel,",
+						"          Tp_Automovel,",
+						"          cd_Tp_Automovel,",
+						"          Nm_Fabricante,",
+						"          Nm_Modelo,",
+						"          Nr_Chassis,",
+						"          Nr_Placa,",
+						"          cd_Modelo",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select2",
+						"select2 keyGenerate(output(DimVeiculoID as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> DimVeiculoID",
+						"source1 select(mapColumn(",
+						"          Cd_Estado,",
+						"          Cd_Estado = Cd_Depto,",
+						"          Nm_Cidade,",
+						"          Nm_Depto,",
+						"          Nm_Estado,",
+						"          Sigla_Estado",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select3",
+						"select3 keyGenerate(output(DimRegiaoID as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> DimRegiaoID",
+						"source1 select(mapColumn(",
+						"          Nm_Cliente,",
+						"          Nm_Tp_Cliente,",
+						"          Nm_Fone_Cliente,",
+						"          cd_Fone_Cliente,",
+						"          Nr_CPF",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select4",
+						"select4 keyGenerate(output(DimClienteID as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> DimClienteID",
+						"source1 select(mapColumn(",
+						"          Vl_Diaria,",
+						"          Vl_Diaria_Calc,",
+						"          Vl_Orc_Depto,",
+						"          Vl_Perc_Comissao = Vl_Total",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select5",
+						"select5 keyGenerate(output(DimItemID as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> DimItemID",
+						"DimTempoID sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['dim_tempo'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink1",
+						"DimVeiculoID sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['dim_veiculo'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink2",
+						"DimRegiaoID sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['dim_regiao'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink3",
+						"DimClienteID sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['dim_cliente'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink4",
+						"DimItemID sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['dim_item'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink5"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ingestionData')]",
+				"[concat(variables('factoryId'), '/datasets/analytics')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ingestionData')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "[parameters('linkedService1')]",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "carloca",
+						"fileSystem": "ingestion"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"cd_agencia": {
+							"type": "integer"
+						},
+						"Nm_Agencia": {
+							"type": "string"
+						},
+						"cd_banco": {
+							"type": "integer"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/analytics')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "[parameters('linkedService1')]",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "analytics"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		}
+	]
+}
