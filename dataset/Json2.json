@@ -1,0 +1,32 @@
+{
+	"name": "Json2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linkedService1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "carloca",
+				"fileSystem": "ingestion"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"cd_agencia": {
+					"type": "integer"
+				},
+				"Nm_Agencia": {
+					"type": "string"
+				},
+				"cd_banco": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}
